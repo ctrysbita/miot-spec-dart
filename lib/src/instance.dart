@@ -77,15 +77,22 @@ class InstancePropertySpec {
   final String description;
   final String format;
 
+  @JsonKey(defaultValue: <String>{})
+  final Set<String> access;
+
   InstancePropertySpec({
     required this.iid,
     required this.type,
     required this.description,
     required this.format,
+    required this.access,
   });
 
   factory InstancePropertySpec.fromJson(Map<String, dynamic> json) =>
       _$InstancePropertySpecFromJson(json);
 
   Map<String, dynamic> toJson() => _$InstancePropertySpecToJson(this);
+
+  bool get canRead => access.contains('read');
+  bool get canWrite => access.contains('write');
 }

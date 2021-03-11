@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'instance.dart';
 
+/// Online API for MIoT spec v2.
 class MIoTSpecV2 {
   static final instance = MIoTSpecV2._();
 

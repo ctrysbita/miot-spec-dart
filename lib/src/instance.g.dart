@@ -100,6 +100,9 @@ InstancePropertySpec _$InstancePropertySpecFromJson(Map<String, dynamic> json) {
     type: SpecType.fromJson(json['type'] as String),
     description: json['description'] as String,
     format: json['format'] as String,
+    access:
+        (json['access'] as List<dynamic>?)?.map((e) => e as String).toSet() ??
+            {},
   );
 }
 
@@ -110,4 +113,5 @@ Map<String, dynamic> _$InstancePropertySpecToJson(
       'type': instance.type,
       'description': instance.description,
       'format': instance.format,
+      'access': instance.access.toList(),
     };
