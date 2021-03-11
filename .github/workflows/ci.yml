@@ -1,0 +1,41 @@
+name: CI
+
+on: push
+
+jobs:
+  Build:
+    strategy:
+      matrix:
+        os:
+          - ubuntu-latest
+          - macos-latest
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cedx/setup-dart@v2
+        with:
+          release-channel: dev
+      - run: pub get
+      - name: Build
+        run: dart2native ./bin/main.dart -o ./miot-spec
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: MIoT_Spec_${{ matrix.os }}
+          path: ./miot-spec
+  BuildWindows:
+    name: Build (windows)
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: cedx/setup-dart@v2
+        with:
+          release-channel: dev
+      - run: pub get
+      - name: Build
+        run: dart2native ./bin/main.dart -o ./miot-spec.exe
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v1.0.0
+        with:
+          name: MIoT_Spec_windows
+          path: ./miot-spec.exe
