@@ -80,12 +80,22 @@ class InstancePropertySpec {
   @JsonKey(defaultValue: <String>{})
   final Set<String> access;
 
+  /// The enum values if available.
+  @JsonKey(name: 'value-list', includeIfNull: false)
+  final List<InstancePropertyValueEnum>? values;
+
+  /// The range of value if available.
+  @JsonKey(name: 'value-range', includeIfNull: false)
+  final InstancePropertyValueRange? range;
+
   InstancePropertySpec({
     required this.iid,
     required this.type,
     required this.description,
     required this.format,
     required this.access,
+    this.values,
+    this.range,
   });
 
   factory InstancePropertySpec.fromJson(Map<String, dynamic> json) =>
@@ -95,4 +105,41 @@ class InstancePropertySpec {
 
   bool get canRead => access.contains('read');
   bool get canWrite => access.contains('write');
+}
+
+@JsonSerializable()
+class InstancePropertyValueEnum {
+  final int value;
+  final String description;
+
+  InstancePropertyValueEnum({
+    required this.value,
+    required this.description,
+  });
+
+  factory InstancePropertyValueEnum.fromJson(Map<String, dynamic> json) =>
+      _$InstancePropertyValueEnumFromJson(json);
+
+  Map<String, dynamic> toJson() => _$InstancePropertyValueEnumToJson(this);
+}
+
+class InstancePropertyValueRange {
+  final num begin;
+  final num end;
+  final num step;
+
+  InstancePropertyValueRange({
+    required this.begin,
+    required this.end,
+    required this.step,
+  });
+
+  factory InstancePropertyValueRange.fromJson(List<dynamic> range) =>
+      InstancePropertyValueRange(
+        begin: range.first as num,
+        end: range[1] as num,
+        step: range[2] as num,
+      );
+
+  List<dynamic> toJson() => <dynamic>[begin, end, step];
 }

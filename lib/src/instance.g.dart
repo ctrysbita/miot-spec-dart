@@ -103,15 +103,49 @@ InstancePropertySpec _$InstancePropertySpecFromJson(Map<String, dynamic> json) {
     access:
         (json['access'] as List<dynamic>?)?.map((e) => e as String).toSet() ??
             {},
+    values: (json['value-list'] as List<dynamic>?)
+        ?.map((e) =>
+            InstancePropertyValueEnum.fromJson(e as Map<String, dynamic>))
+        .toList(),
+    range: json['value-range'] == null
+        ? null
+        : InstancePropertyValueRange.fromJson(
+            json['value-range'] as List<dynamic>),
   );
 }
 
 Map<String, dynamic> _$InstancePropertySpecToJson(
-        InstancePropertySpec instance) =>
+    InstancePropertySpec instance) {
+  final val = <String, dynamic>{
+    'iid': instance.iid,
+    'type': instance.type,
+    'description': instance.description,
+    'format': instance.format,
+    'access': instance.access.toList(),
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('value-list', instance.values);
+  writeNotNull('value-range', instance.range);
+  return val;
+}
+
+InstancePropertyValueEnum _$InstancePropertyValueEnumFromJson(
+    Map<String, dynamic> json) {
+  return InstancePropertyValueEnum(
+    value: json['value'] as int,
+    description: json['description'] as String,
+  );
+}
+
+Map<String, dynamic> _$InstancePropertyValueEnumToJson(
+        InstancePropertyValueEnum instance) =>
     <String, dynamic>{
-      'iid': instance.iid,
-      'type': instance.type,
+      'value': instance.value,
       'description': instance.description,
-      'format': instance.format,
-      'access': instance.access.toList(),
     };
