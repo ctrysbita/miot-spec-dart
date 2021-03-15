@@ -1,6 +1,7 @@
 import 'package:dio/dio.dart';
 
 import 'instance.dart';
+import 'language.dart';
 
 /// Online API for MIoT spec v2.
 class MIoTSpecV2 {
@@ -27,5 +28,17 @@ class MIoTSpecV2 {
     );
 
     return InstanceSpec.fromJson(resp.data!);
+  }
+
+  Future<InstanceTranslations> getTranslationsForInstance(String type) async {
+    final resp = await _dio.post<Map<String, dynamic>>(
+      'https://miot-spec.org/instance/v2/multiLanguage',
+      data: <String, dynamic>{
+        'urns': ['$type,0'],
+      },
+    );
+
+    return InstanceTranslations.fromJson(
+        resp.data?[type] as Map<String, dynamic>? ?? <String, dynamic>{});
   }
 }
