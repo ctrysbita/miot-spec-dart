@@ -1,4 +1,4 @@
-## 0.2.0
+## 0.2.1
 
 - Support value enum & range in instance.
 
