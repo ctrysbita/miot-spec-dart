@@ -40,6 +40,30 @@ class SpecType {
 
   String toJson() => toString();
 
+  bool sameTypeWith(SpecType other) =>
+      namespace == other.namespace && type == other.type;
+
+  bool sameNameWith(SpecType other) =>
+      namespace == other.namespace && type == other.type && name == other.name;
+
+  @override
+  bool operator ==(Object other) =>
+      identical(this, other) ||
+      other is SpecType &&
+          sameNameWith(other) &&
+          value == other.value &&
+          product == other.product &&
+          version == other.version;
+
+  @override
+  int get hashCode =>
+      namespace.hashCode ^
+      type.hashCode ^
+      name.hashCode ^
+      value.hashCode ^
+      product.hashCode ^
+      version.hashCode;
+
   @override
   String toString() => 'urn:$namespace:$type:$name'
       ':${(value ?? 0).toRadixString(16).padLeft(8, '0').toUpperCase()}'
