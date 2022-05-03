@@ -47,12 +47,14 @@ class InstanceCommand extends Command<void> {
             .map<InstanceEntry?>((dynamic e) =>
                 InstanceEntry.fromJson(e as Map<String, dynamic>))
             .firstWhere((e) => e?.model == model, orElse: () => null)
-            ?.type;
+            ?.type
+            .toString();
       } else {
-        type = (await MIoTSpecV2.instance.instances)
+        type = (await MIoTSpecV2.instance.getInstances())
             .cast<InstanceEntry?>()
             .firstWhere((e) => e?.model == model, orElse: () => null)
-            ?.type;
+            ?.type
+            .toString();
       }
     }
 

@@ -14,7 +14,7 @@ enum ReleaseStatus {
 class InstanceEntry {
   final ReleaseStatus status;
   final String model;
-  final String type;
+  final SpecType type;
   final int version;
 
   InstanceEntry({
@@ -54,14 +54,18 @@ class InstanceServiceSpec {
   final SpecType type;
   final String description;
 
-  @JsonKey(defaultValue: <InstancePropertySpec>[])
+  @JsonKey(defaultValue: [])
   final List<InstancePropertySpec> properties;
+
+  @JsonKey(defaultValue: [])
+  final List<InstanceActionSpec> actions;
 
   InstanceServiceSpec({
     required this.iid,
     required this.type,
     required this.description,
     this.properties = const [],
+    this.actions = const [],
   });
 
   factory InstanceServiceSpec.fromJson(Map<String, dynamic> json) =>
@@ -77,7 +81,7 @@ class InstancePropertySpec {
   final String description;
   final String format;
 
-  @JsonKey(defaultValue: <String>{})
+  @JsonKey(defaultValue: {})
   final Set<String> access;
 
   /// The enum values if available.
@@ -142,4 +146,22 @@ class InstancePropertyValueRange {
       );
 
   List<dynamic> toJson() => <dynamic>[begin, end, step];
+}
+
+@JsonSerializable()
+class InstanceActionSpec {
+  final int iid;
+  final SpecType type;
+  final String description;
+
+  InstanceActionSpec({
+    required this.iid,
+    required this.type,
+    required this.description,
+  });
+
+  factory InstanceActionSpec.fromJson(Map<String, dynamic> json) =>
+      _$InstanceActionSpecFromJson(json);
+
+  Map<String, dynamic> toJson() => _$InstanceActionSpecToJson(this);
 }

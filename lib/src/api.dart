@@ -2,6 +2,7 @@ import 'package:dio/dio.dart';
 
 import 'instance.dart';
 import 'language.dart';
+import 'type.dart';
 
 /// Online API for MIoT spec v2.
 class MIoTSpecV2 {
@@ -11,14 +12,18 @@ class MIoTSpecV2 {
 
   MIoTSpecV2._();
 
-  Future<List<InstanceEntry>> get instances async {
-    final resp = await _dio.get<Map<String, dynamic>>('/instances?status=all');
-    final list = resp.data?['instances'] as List<dynamic>;
+  /// Get all instances.
+  Future<List<InstanceEntry>> getInstances([String status = 'all']) async {
+    final resp = await _dio.get<Map<String, dynamic>>(
+      '/instances?status=$status',
+    );
+    final list = resp.data?['instances'] as List<dynamic>? ?? [];
     return list
-        .map((dynamic e) => InstanceEntry.fromJson(e as Map<String, dynamic>))
+        .map((e) => InstanceEntry.fromJson(e as Map<String, dynamic>))
         .toList();
   }
 
+  /// Get specific instance.
   Future<InstanceSpec> getInstance(String type) async {
     final resp = await _dio.get<Map<String, dynamic>>(
       '/instance',
@@ -30,7 +35,10 @@ class MIoTSpecV2 {
     return InstanceSpec.fromJson(resp.data!);
   }
 
-  Future<InstanceTranslations> getTranslationsForInstance(String type) async {
+  /// Get translation for specific instance.
+  Future<Map<String, InstanceTranslation>> getTranslationForInstance(
+    SpecType type,
+  ) async {
     final resp = await _dio.post<Map<String, dynamic>>(
       'https://miot-spec.org/instance/v2/multiLanguage',
       data: <String, dynamic>{
@@ -38,7 +46,8 @@ class MIoTSpecV2 {
       },
     );
 
-    return InstanceTranslations.fromJson(
-        resp.data?[type] as Map<String, dynamic>? ?? <String, dynamic>{});
+    return (resp.data?[type]?['data'] as Map<String, dynamic>?)
+            ?.map((k, v) => MapEntry(k, InstanceTranslation.fromJson(v))) ??
+        {};
   }
 }
