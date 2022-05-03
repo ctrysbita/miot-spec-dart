@@ -10,12 +10,15 @@ class MiotSpecCommandRunner extends CommandRunner<void> {
       'level',
       abbr: 'l',
       help: 'Log level.',
-      allowed: ['verbose', 'debug', 'info'],
+      allowed: ['v', 'verbose', 'd', 'debug', 'i', 'info'],
       defaultsTo: 'info',
       callback: (level) {
         Logger.level = const <String, Level>{
+              'v': Level.verbose,
               'verbose': Level.verbose,
+              'd': Level.debug,
               'debug': Level.debug,
+              'i': Level.info,
               'info': Level.info,
             }[level] ??
             Level.info;

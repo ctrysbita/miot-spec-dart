@@ -10,7 +10,7 @@ class InstanceCommand extends Command<void> {
   final String name = 'instance';
 
   @override
-  final String description = 'Get instance.';
+  final String description = 'Get specific instance.';
 
   String? type;
   late final String? model;
@@ -42,10 +42,9 @@ class InstanceCommand extends Command<void> {
     if (type == null) {
       final instancesFile = File('instances.json');
       if (instancesFile.existsSync()) {
-        logger.i('Using instances.json');
+        logger.i('Using local instances.json');
         type = (jsonDecode(instancesFile.readAsStringSync()) as List<dynamic>)
-            .map<InstanceEntry?>((dynamic e) =>
-                InstanceEntry.fromJson(e as Map<String, dynamic>))
+            .map<InstanceEntry?>((e) => InstanceEntry.fromJson(e))
             .firstWhere((e) => e?.model == model, orElse: () => null)
             ?.type
             .toString();

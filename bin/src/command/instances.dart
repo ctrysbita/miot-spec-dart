@@ -14,10 +14,9 @@ class InstancesCommand extends Command<void> {
   @override
   Future<void> run() async {
     logger.i('Downloading all instances...');
-    final instanceEntries = await MIoTSpecV2.instance.getInstances();
-    logger.i('Saving instances...');
-    File('instances.json')
-        .writeAsStringSync(jsonEncoder.convert(instanceEntries));
+    final entries = await MIoTSpecV2.instance.getInstances();
+    logger.i('Saving ${entries.length} instances to ...');
+    File('instances.json').writeAsStringSync(jsonEncoder.convert(entries));
     logger.i('Instances saved to instances.json.');
   }
 }
