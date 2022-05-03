@@ -1,0 +1,32 @@
+name: Build CLI
+
+on: push
+
+jobs:
+  Build:
+    strategy:
+      matrix:
+        include:
+          - name: ubuntu
+            os: ubuntu-latest
+            output: miot-spec
+          - name: macos
+            os: macos-latest
+            output: miot-spec
+          - name: windows
+            os: windows-latest
+            output: miot-spec.exe
+    runs-on: ${{ matrix.os }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: dart-lang/setup-dart@v1
+        with:
+          sdk: dev
+      - run: dart pub get
+      - name: Build
+        run: dart compile exe -o ./${{ matrix.output }} ./bin/miot_spec.dart
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: MIoT_Spec_${{ matrix.name }}
+          path: ./${{ matrix.output }}
