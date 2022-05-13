@@ -14,7 +14,7 @@ enum ReleaseStatus {
 class InstanceEntry {
   final ReleaseStatus status;
   final String model;
-  final SpecType type;
+  final MIoTSpecType type;
   final int version;
 
   InstanceEntry({
@@ -32,7 +32,7 @@ class InstanceEntry {
 
 @JsonSerializable()
 class InstanceSpec {
-  final SpecType type;
+  final MIoTSpecType type;
   final String description;
   final List<InstanceServiceSpec> services;
 
@@ -51,7 +51,7 @@ class InstanceSpec {
 @JsonSerializable()
 class InstanceServiceSpec {
   final int iid;
-  final SpecType type;
+  final MIoTSpecType type;
   final String description;
 
   @JsonKey(defaultValue: [])
@@ -77,7 +77,7 @@ class InstanceServiceSpec {
 @JsonSerializable()
 class InstancePropertySpec {
   final int iid;
-  final SpecType type;
+  final MIoTSpecType type;
   final String description;
   final String format;
 
@@ -151,7 +151,7 @@ class InstancePropertyValueRange {
 @JsonSerializable()
 class InstanceActionSpec {
   final int iid;
-  final SpecType type;
+  final MIoTSpecType type;
   final String description;
 
   InstanceActionSpec({

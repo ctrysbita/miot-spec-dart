@@ -1,3 +1,7 @@
+## 0.4.0
+
+- Use enum for spec type kind.
+
 ## 0.3.0
 
 - Add SpecType equality for type & name.

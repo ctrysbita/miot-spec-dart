@@ -10,7 +10,7 @@ InstanceEntry _$InstanceEntryFromJson(Map<String, dynamic> json) =>
     InstanceEntry(
       status: $enumDecode(_$ReleaseStatusEnumMap, json['status']),
       model: json['model'] as String,
-      type: SpecType.fromJson(json['type'] as String),
+      type: MIoTSpecType.fromJson(json['type'] as String),
       version: json['version'] as int,
     );
 
@@ -29,7 +29,7 @@ const _$ReleaseStatusEnumMap = {
 };
 
 InstanceSpec _$InstanceSpecFromJson(Map<String, dynamic> json) => InstanceSpec(
-      type: SpecType.fromJson(json['type'] as String),
+      type: MIoTSpecType.fromJson(json['type'] as String),
       description: json['description'] as String,
       services: (json['services'] as List<dynamic>)
           .map((e) => InstanceServiceSpec.fromJson(e as Map<String, dynamic>))
@@ -46,7 +46,7 @@ Map<String, dynamic> _$InstanceSpecToJson(InstanceSpec instance) =>
 InstanceServiceSpec _$InstanceServiceSpecFromJson(Map<String, dynamic> json) =>
     InstanceServiceSpec(
       iid: json['iid'] as int,
-      type: SpecType.fromJson(json['type'] as String),
+      type: MIoTSpecType.fromJson(json['type'] as String),
       description: json['description'] as String,
       properties: (json['properties'] as List<dynamic>?)
               ?.map((e) =>
@@ -74,7 +74,7 @@ InstancePropertySpec _$InstancePropertySpecFromJson(
         Map<String, dynamic> json) =>
     InstancePropertySpec(
       iid: json['iid'] as int,
-      type: SpecType.fromJson(json['type'] as String),
+      type: MIoTSpecType.fromJson(json['type'] as String),
       description: json['description'] as String,
       format: json['format'] as String,
       access:
@@ -128,7 +128,7 @@ Map<String, dynamic> _$InstancePropertyValueEnumToJson(
 InstanceActionSpec _$InstanceActionSpecFromJson(Map<String, dynamic> json) =>
     InstanceActionSpec(
       iid: json['iid'] as int,
-      type: SpecType.fromJson(json['type'] as String),
+      type: MIoTSpecType.fromJson(json['type'] as String),
       description: json['description'] as String,
     );
 

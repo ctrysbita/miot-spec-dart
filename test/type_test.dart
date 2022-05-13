@@ -4,10 +4,10 @@ import 'package:test/test.dart';
 void main() {
   group('MIoT spec type', () {
     test('urn:miot-spec-v2:device:fan:0000A005', () {
-      final type = SpecType.parse('urn:miot-spec-v2:device:fan:0000A005');
+      final type = MIoTSpecType.parse('urn:miot-spec-v2:device:fan:0000A005');
 
       expect(type.namespace, equals('miot-spec-v2'));
-      expect(type.type, equals('device'));
+      expect(type.type, equals(MIoTSpecTypeKind.device));
       expect(type.name, equals('fan'));
       expect(type.value, equals(0xA005));
       expect(type.product, isNull);
@@ -16,12 +16,12 @@ void main() {
     });
 
     test('urn:miot-spec-v2:device:light:0000A001:yeelight-lamp1:1', () {
-      final type = SpecType.parse(
+      final type = MIoTSpecType.parse(
         'urn:miot-spec-v2:device:light:0000A001:yeelight-lamp1:1',
       );
 
       expect(type.namespace, equals('miot-spec-v2'));
-      expect(type.type, equals('device'));
+      expect(type.type, equals(MIoTSpecTypeKind.device));
       expect(type.name, equals('light'));
       expect(type.value, equals(0xA001));
       expect(type.product, equals('yeelight-lamp1'));
@@ -33,33 +33,35 @@ void main() {
     });
 
     test('Wrong type: urn:miot-spec-v2:device:light', () {
-      expect(() => SpecType.parse('urn:miot-spec-v2:device:light'),
-          throwsFormatException);
+      expect(
+        () => MIoTSpecType.parse('urn:miot-spec-v2:device:light'),
+        throwsFormatException,
+      );
     });
 
     test('Equality', () {
-      final type1 = SpecType.parse(
+      final t1 = MIoTSpecType.parse(
         'urn:miot-spec-v2:device:light:0000A001:yeelight-lamp1:1',
       );
-      final type2 = SpecType.parse(
+      final t2 = MIoTSpecType.parse(
         'urn:miot-spec-v2:device:light:0000A001:yeelight-lamp1:1',
       );
-      expect(type1, equals(type2));
-      expect(type1.hashCode, equals(type2.hashCode));
+      expect(t1, equals(t2));
+      expect(t1.hashCode, equals(t2.hashCode));
 
-      final type3 = SpecType.parse('urn:miot-spec-v2:device:light:0000A001');
-      final type4 = SpecType.parse('urn:miot-spec-v2:device:light:0000A001');
-      expect(type3, equals(type4));
-      expect(type3.hashCode, equals(type4.hashCode));
+      final t3 = MIoTSpecType.parse('urn:miot-spec-v2:device:light:0000A001');
+      final t4 = MIoTSpecType.parse('urn:miot-spec-v2:device:light:0000A001');
+      expect(t3, equals(t4));
+      expect(t3.hashCode, equals(t4.hashCode));
 
-      final type5 = SpecType.parse(
+      final t5 = MIoTSpecType.parse(
         'urn:miot-spec-v2:device:light:0000A001:yeelight-lamp1:1',
       );
-      final type6 = SpecType.parse(
+      final t6 = MIoTSpecType.parse(
         'urn:miot-spec-v2:device:light:0000A002:yeelight-lamp1:1',
       );
-      expect(type5, isNot(equals(type6)));
-      expect(type5.hashCode, isNot(equals(type6.hashCode)));
+      expect(t5, isNot(equals(t6)));
+      expect(t5.hashCode, isNot(equals(t6.hashCode)));
     });
   });
 }

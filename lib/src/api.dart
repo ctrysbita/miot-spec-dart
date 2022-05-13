@@ -37,7 +37,7 @@ class MIoTSpecV2 {
 
   /// Get translation for specific instance.
   Future<Map<String, InstanceTranslation>> getTranslationForInstance(
-    SpecType type,
+    MIoTSpecType type,
   ) async {
     final resp = await _dio.post<Map<String, dynamic>>(
       'https://miot-spec.org/instance/v2/multiLanguage',
