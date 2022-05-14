@@ -21,7 +21,7 @@ class MIoTSpecType {
   final int? version;
 
   const MIoTSpecType({
-    required this.namespace,
+    this.namespace = 'miot-spec-v2',
     required this.type,
     required this.name,
     required this.value,

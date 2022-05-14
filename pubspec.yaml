@@ -1,6 +1,6 @@
 name: miot_spec
 description: Dart implementation of MIoT specification.
-version: 0.4.0
+version: 0.4.1
 homepage: https://github.com/ctrysbita/miot_spec.dart
 
 environment:
