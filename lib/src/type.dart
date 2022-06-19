@@ -19,6 +19,7 @@ class MIoTSpecType {
   final int? value;
   final String? product;
   final int? version;
+  final int? id;
 
   const MIoTSpecType({
     this.namespace = 'miot-spec-v2',
@@ -27,6 +28,7 @@ class MIoTSpecType {
     required this.value,
     this.product,
     this.version,
+    this.id,
   });
 
   factory MIoTSpecType.parse(String specType) {
@@ -46,6 +48,7 @@ class MIoTSpecType {
       value: int.parse(list[4], radix: 16),
       product: list.length >= 6 ? list[5] : null,
       version: list.length >= 7 ? int.parse(list[6]) : null,
+      id: list.length >= 8 ? int.parse(list[7], radix: 16) : null,
     );
   }
 
@@ -81,5 +84,6 @@ class MIoTSpecType {
   String toString() => 'urn:$namespace:${type.name}:$name'
       ':${(value ?? 0).toRadixString(16).padLeft(8, '0').toUpperCase()}'
       '${product != null ? ':$product' : ''}'
-      '${version != null ? ':$version' : ''}';
+      '${version != null ? ':$version' : ''}'
+      '${id != null ? ':${id!.toRadixString(16).padLeft(8, '0').toUpperCase()}' : ''}';
 }

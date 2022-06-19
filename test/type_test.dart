@@ -32,6 +32,20 @@ void main() {
       );
     });
 
+    test('urn:miot-spec-v2:device:light:0000A001:yeelink-lamp22:1:0000C802',
+        () {
+      final type = MIoTSpecType.parse(
+        'urn:miot-spec-v2:device:light:0000A001:yeelink-lamp22:1:0000C802',
+      );
+
+      expect(
+        type.toString(),
+        equals(
+          'urn:miot-spec-v2:device:light:0000A001:yeelink-lamp22:1:0000C802',
+        ),
+      );
+    });
+
     test('Wrong type: urn:miot-spec-v2:device:light', () {
       expect(
         () => MIoTSpecType.parse('urn:miot-spec-v2:device:light'),
