@@ -1,3 +1,7 @@
+## 0.5.1
+
+- Update translations model.
+
 ## 0.4.2
 
 - Use enum for spec type kind.
