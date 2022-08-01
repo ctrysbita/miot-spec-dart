@@ -3,7 +3,8 @@ import 'dart:io';
 
 import 'package:args/command_runner.dart';
 import 'package:miot_spec/miot_spec.dart';
-import 'package:miot_spec/src/utils.dart';
+
+import '../utils.dart';
 
 class InstanceCommand extends Command<void> {
   @override

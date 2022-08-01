@@ -1,6 +1,5 @@
-import 'package:miot_spec/src/utils.dart';
-
 import 'src/command_runner.dart';
+import 'src/utils.dart';
 
 void main(List<String> args) async {
   try {
