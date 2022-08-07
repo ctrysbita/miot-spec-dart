@@ -8,7 +8,7 @@ part of 'instance.dart';
 
 InstanceEntry _$InstanceEntryFromJson(Map<String, dynamic> json) =>
     InstanceEntry(
-      status: $enumDecode(_$ReleaseStatusEnumMap, json['status']),
+      status: $enumDecodeNullable(_$ReleaseStatusEnumMap, json['status']),
       model: json['model'] as String,
       type: MIoTSpecType.fromJson(json['type'] as String),
       version: json['version'] as int,
@@ -52,12 +52,12 @@ InstanceServiceSpec _$InstanceServiceSpecFromJson(Map<String, dynamic> json) =>
               ?.map((e) =>
                   InstancePropertySpec.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          [],
+          const [],
       actions: (json['actions'] as List<dynamic>?)
               ?.map(
                   (e) => InstanceActionSpec.fromJson(e as Map<String, dynamic>))
               .toList() ??
-          [],
+          const [],
     );
 
 Map<String, dynamic> _$InstanceServiceSpecToJson(

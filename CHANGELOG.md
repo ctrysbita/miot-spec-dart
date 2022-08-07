@@ -1,3 +1,7 @@
+## 0.6.0
+
+Allow null status for instance.
+
 ## 0.5.1
 
 - Update translations model.

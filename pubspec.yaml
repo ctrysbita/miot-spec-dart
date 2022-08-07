@@ -1,6 +1,6 @@
 name: miot_spec
 description: Dart implementation of MIoT specification.
-version: 0.5.1
+version: 0.6.0
 homepage: https://github.com/ctrysbita/miot_spec.dart
 
 environment:
@@ -9,7 +9,7 @@ environment:
 dependencies:
   args: ^2.0.0
   dio: ^4.0.0
-  json_annotation: ^4.5.0
+  json_annotation: ^4.6.0
   logger: ^1.0.0
 
 dev_dependencies:
